@@ -1,6 +1,7 @@
 package org.example.redbook
 
 import org.example.redbook.chapter3.datastructures._
+import org.example.redbook.chapter3.datastructures.Tree._
 import org.example.redbook.chapter3.datastructures.List._
 
 object Chapter3 {
@@ -32,11 +33,11 @@ object Chapter3 {
     val list5 = List(4, 5)
     println(s"append: ${append(li, list5)}")
     println(s"concat: ${concat(li, list5, List(6))}")
-    println(s"map +1: ${map(li)(_ + 1)}")
+    println(s"map +1: ${List.map(li)(_ + 1)}")
     println(s"add1: ${add1(li)}")
     //EXERCISE 3.19
     println(s"filter odd numbers: ${filter(List(1, 2, 3, 4, 5))(_ % 2 == 0)}")
-    println(map(List(1, 2, 3))(i => List(i, i)))
+    println(List.map(List(1, 2, 3))(i => List(i, i)))
     println(flatMap(List(1, 2, 3))(i => List(i, i)))
     println(
       s"filter odd numbers with flapMap: ${filterWithFlatMap(List(1, 2, 3, 4, 5))(_ % 2 == 0)}"
@@ -48,5 +49,12 @@ object Chapter3 {
     println("hasSubsequence(List(1,2,3), List(2,3)):")
     println(hasSubsequence(List(1, 2, 3), List(2, 3)))
 
+    println("_________________________TREES____________________________")
+
+    val someTree = Branch(Branch(Leaf(1), Leaf(11)), Leaf(2))
+    println(s"someTree size: ${size(someTree)}")
+    println(s"someTree maximum: ${maximum(someTree)}")
+    println(s"someTree depth: ${depth(someTree)}")
+    println(s"someTree map: ${Tree.map(someTree)(_ * 2)}")
   }
 }
