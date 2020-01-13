@@ -12,6 +12,14 @@ object List {
     case Cons(x, xs) => x + sum(xs)
   }
 
+  @tailrec
+  private def sumTailRec(list: List[Int], accumulator: Int): Int = {
+    list match {
+      case Nil         => accumulator
+      case Cons(x, xs) => sumTailRec(xs, accumulator + x)
+    }
+  }
+
   def product(ds: List[Double]): Double = ds match {
     case Nil          => 1.0
     case Cons(0.0, _) => 0.0
