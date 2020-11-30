@@ -2,12 +2,10 @@ package org.example.redbook
 
 import org.example.redbook.chapter4.errorhandling._
 
-object Chapter4 {
+object Chapter4 extends App {
 
-  def main(args: Array[String]): Unit = {
-    val o: Option[Int] = Some(1)
+  val o: Option[Int] = Some(1)
 
-    o.map(_ * 2)
-  }
+  o.map(_ * 2)
 
 }

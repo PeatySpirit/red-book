@@ -1,6 +1,6 @@
 package org.example.redbook
 
-object Chapter1 {
+object Chapter1 extends App {
 
   def fib(n: Int): Int = {
     @annotation.tailrec
@@ -34,7 +34,6 @@ object Chapter1 {
   //f compose g
   //g andThen f
 
-  def main(args: Array[String]): Unit = {
     println(s"fibonacci(10) = ${fib(10)}")
 
     println(
@@ -52,5 +51,4 @@ object Chapter1 {
         else false
       })
     )
-  }
 }
