@@ -44,6 +44,20 @@ object Chapter5 extends App {
   println("EXERCISE 5.7 map using implemented via foldRight")
   println(stream.map(_ * 2).toList)
 
-  println("should filter odd numbers")
+  println("EXERCISE 5.7 should filter odd numbers")
   println(stream.filter(_ % 2 == 0).toList)
+
+  println("Example of working with infinite streams")
+  val ones: Stream[Int] = Stream.constant(1)
+  println(ones.take(5).toList)
+  println(ones.map(_ + 1).exists(_ % 2 == 0))
+  println(ones.takeWhile(_ == 1))
+  println(ones.forALl(_ != 1))
+  // stack overflow: println(ones.forALl(_ == 1))
+
+  println("EXERCISE 5.9 infinite stream of Integers")
+  println(Stream.from(100).take(3).toList)
+
+  println("EXERCISE 5.10 Fibonacci numbers")
+  println(Stream.fibs().take(10).toList)
 }

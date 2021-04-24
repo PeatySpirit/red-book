@@ -76,6 +76,8 @@ sealed trait Stream[+A] {
     // cannot implement without append I guess
 //    foldRight(empty[B])((h,t) => f(h) append t)
 
+  def find(p: A => Boolean): Option[A] =
+    filter(p).headOption
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
@@ -88,6 +90,18 @@ object Stream {
   }
 
   def empty[A]: Stream[A] = Empty
+
+  // EXERCISE 5.8 infinite Stream of given number
+  def constant[A](a: A): Stream[A] = cons(a, constant(a))
+
+  // EXERCISE 5.9 infinite Stream of Integers incremented by 1
+  def from(n: Int): Stream[Int] = cons(n, from(n + 1))
+
+  // EXERCISE 5.10 infinite Stream of Fibonacci numbers
+  def fibs(): Stream[Int] = {
+    def internalLoop(prev: Int, current: Int): Stream[Int] = cons(current, internalLoop(current, prev + current))
+    cons(0, internalLoop(0, 1))
+  }
 
   def apply[A](as: A*): Stream[A] =
     if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
