@@ -1,4 +1,4 @@
-package org.example.redbook
+package com.github.peatyspirit.redbook
 
 object Chapter1 extends App {
 
@@ -8,6 +8,7 @@ object Chapter1 extends App {
       if (n == 0) acc
       else loop(acc + n, n - 1)
     }
+
     loop(0, n)
   }
 
@@ -31,24 +32,25 @@ object Chapter1 extends App {
 
   def compose[A, B, C](f: B => C, g: A => B): A => C =
     (a: A) => f(g(a))
+
   //f compose g
   //g andThen f
 
-    println(s"fibonacci(10) = ${fib(10)}")
+  println(s"fibonacci(10) = ${fib(10)}")
 
-    println(
-      isSorted(
-        Array(1, 2, 3, 2),
-        (a: Int, b: Int) =>
-          if (a <= b) true
-          else false
-      )
-    )
-
-    println(
-      isSorted(Array(1, 2, 3, 4, 10, 15, 55, 55, 56), (a: Int, b: Int) => {
+  println(
+    isSorted(
+      Array(1, 2, 3, 2),
+      (a: Int, b: Int) =>
         if (a <= b) true
         else false
-      })
     )
+  )
+
+  println(
+    isSorted(Array(1, 2, 3, 4, 10, 15, 55, 55, 56), (a: Int, b: Int) => {
+      if (a <= b) true
+      else false
+    })
+  )
 }
