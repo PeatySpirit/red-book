@@ -60,4 +60,15 @@ object Chapter5 extends App {
 
   println("EXERCISE 5.10 Fibonacci numbers")
   println(Stream.fibs().take(10).toList)
+
+  println("EXERCISE 5.11 unfold countdown from 10 to 1")
+  println(Stream.unfold(10)(count =>
+    if (count > 0) Some((count, count - 1))
+    else None).toList)
+
+  println("EXERCISE 5.12 unfold fibs")
+  println(Stream.fibs().take(10).toList)
+  println(Stream.from2(5).take(6).toList)
+  println(Stream.constant2("I am a constant in this infinite Stream").take(3).toList)
+  println(Stream.ones2.take(3).toList)
 }

@@ -103,6 +103,19 @@ object Stream {
     cons(0, internalLoop(0, 1))
   }
 
+  // EXERCISE 5.11 generic Stream building function unfold
+  def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = f(z) match {
+    case None => empty[A]
+    case Some((a, s)) => cons(a, unfold(s)(f))
+  }
+
+  // EXERCISE 5.11 implement fibs, from, constant and ones in terms of unfold
+  def fibs2(): Stream[Int] =
+    unfold((0, 1))(x => Some(x._1, (x._2, x._1 + x._2)))
+  def from2(start: Int): Stream[Int] = unfold(start)(n => Some(n, n + 1))
+  def constant2[A](c: A): Stream[A] = unfold(c)(_ => Some(c, c))
+  def ones2(): Stream[Int] = constant2(1)
+
   def apply[A](as: A*): Stream[A] =
     if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
 }
