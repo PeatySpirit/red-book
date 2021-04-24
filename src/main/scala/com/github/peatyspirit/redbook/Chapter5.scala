@@ -37,4 +37,13 @@ object Chapter5 extends App {
 
   println("EXERCISE 5.3 takeWhile")
   println(stream.takeWhile(_ < 5).toList)
+
+  println("EXERCISE 5.4 forAll should evaluate just first non-matching value")
+  streamLazier.forALl(_ == "a")
+
+  println("EXERCISE 5.7 map using implemented via foldRight")
+  println(stream.map(_ * 2).toList)
+
+  println("should filter odd numbers")
+  println(stream.filter(_ % 2 == 0).toList)
 }
