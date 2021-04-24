@@ -1,4 +1,4 @@
-package org.example.redbook.chapter3.datastructures
+package com.github.peatyspirit.redbook.chapter3.datastructures
 
 import scala.annotation.tailrec
 

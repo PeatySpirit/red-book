@@ -1,19 +1,19 @@
-package org.example.redbook
+package com.github.peatyspirit.redbook
 
-import org.example.redbook.chapter3.datastructures._
-import org.example.redbook.chapter3.datastructures.Tree._
-import org.example.redbook.chapter3.datastructures.List._
+import com.github.peatyspirit.redbook.chapter3.datastructures.List._
+import com.github.peatyspirit.redbook.chapter3.datastructures.Tree.{depth, maximum, size}
+import com.github.peatyspirit.redbook.chapter3.datastructures.{Branch, Cons, Leaf, List, Nil, Tree}
 
 object Chapter3 extends App {
 
   println(s"CHAPTER 3")
-//    val x: Unit = List(1, 2, 3, 4, 5) match {
-//      case Cons(x, Cons(2, Cons(4, _)))          => println(s"1: $x")
-//      case Nil                                   => println(42)
-//      case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => println(s"$x + $y")
-//      case Cons(h, t)                            => println(h + sum(t))
-//      case _                                     => println(101)
-//    }
+  //    val x: Unit = List(1, 2, 3, 4, 5) match {
+  //      case Cons(x, Cons(2, Cons(4, _)))          => println(s"1: $x")
+  //      case Nil                                   => println(42)
+  //      case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => println(s"$x + $y")
+  //      case Cons(h, t)                            => println(h + sum(t))
+  //      case _                                     => println(101)
+  //    }
 
   val li = List(1, 2, 3)
   val li2 = foldRight(li, Nil: List[Int])(Cons(_, _))
@@ -40,8 +40,10 @@ object Chapter3 extends App {
   println(List.map(List(1, 2, 3))(i => List(i, i)))
   println(flatMap(List(1, 2, 3))(i => List(i, i)))
   println(
-    s"filter odd numbers with flapMap: ${filterWithFlatMap(List(1, 2, 3, 4, 5))(
-      _ % 2 == 0)}"
+    s"filter odd numbers with flapMap: ${
+      filterWithFlatMap(List(1, 2, 3, 4, 5))(
+        _ % 2 == 0)
+    }"
   )
 
   println(zipNumbers(li, List(1)))

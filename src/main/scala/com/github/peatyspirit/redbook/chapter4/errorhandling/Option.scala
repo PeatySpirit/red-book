@@ -1,4 +1,4 @@
-package org.example.redbook.chapter4.errorhandling
+package com.github.peatyspirit.redbook.chapter4.errorhandling
 
 sealed trait Option[+Q] {
   //EXERCISE 4.1

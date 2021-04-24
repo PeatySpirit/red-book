@@ -1,4 +1,4 @@
-name := "project1"
+name := "red-book"
 
 version := "0.1"
 
