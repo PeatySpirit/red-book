@@ -39,11 +39,57 @@ object Chapter5 extends App {
   println(stream.takeWhile(_ < 5).toList)
 
   println("EXERCISE 5.4 forAll should evaluate just first non-matching value")
-  streamLazier.forALl(_ == "a")
+  streamLazier.forAll(_ == "a")
 
   println("EXERCISE 5.7 map using implemented via foldRight")
   println(stream.map(_ * 2).toList)
 
-  println("should filter odd numbers")
+  println("EXERCISE 5.7 should filter odd numbers")
   println(stream.filter(_ % 2 == 0).toList)
+
+  println("Example of working with infinite streams")
+  val ones: Stream[Int] = Stream.constant(1)
+  println(ones.take(5).toList)
+  println(ones.map(_ + 1).exists(_ % 2 == 0))
+  println(ones.takeWhile(_ == 1))
+  println(ones.forAll(_ != 1))
+  // stack overflow: println(ones.forALl(_ == 1))
+
+  println("EXERCISE ??? append")
+  println(stream.append(stream).toList)
+
+  println("EXERCISE 5.9 infinite stream of Integers")
+  println(Stream.from(100).take(3).toList)
+
+  println("EXERCISE 5.10 Fibonacci numbers")
+  println(Stream.fibs().take(10).toList)
+
+  println("EXERCISE 5.11 unfold countdown from 10 to 1")
+  println(Stream.unfold(10)(count =>
+    if (count > 0) Some((count, count - 1))
+    else None).toList)
+
+  println("EXERCISE 5.12 unfold implementations")
+  println(Stream.fibs().take(10).toList)
+  println(Stream.from2(5).take(6).toList)
+  println(Stream.constant2("I am a constant in this infinite Stream").take(3).toList)
+  println(Stream.ones2.take(3).toList)
+
+  println("EXERCISE 5.13 unfold fibs")
+  println(ones.mapUnfold(_ + 1).exists(_ % 2 == 0))
+  println(ones.takeUnfold(2).toList)
+  println(stream.takeWhileUnfold(_ < 5).toList)
+  println(stream.zipWithUnfold(ones)(_ + _).toList)
+  println(stream.zipAllUnfold(ones).take(10).toList)
+
+  println("EXERCISE 5.14 startsWith")
+  println(ones.startsWith(stream))
+  println(ones.zipAllUnfold(stream).take(10).toList)
+  println(stream.startsWith(Stream.from(1).take(2)))
+
+  println("EXERCISE 5.15 startsWith")
+  println(Stream(1,2).tails)
+
+  println(stream.hasSubsequence(Stream(2,3)))
+  println(stream.hasSubsequence(Stream(3,2)))
 }
