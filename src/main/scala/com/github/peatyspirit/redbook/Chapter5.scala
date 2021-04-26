@@ -39,7 +39,7 @@ object Chapter5 extends App {
   println(stream.takeWhile(_ < 5).toList)
 
   println("EXERCISE 5.4 forAll should evaluate just first non-matching value")
-  streamLazier.forALl(_ == "a")
+  streamLazier.forAll(_ == "a")
 
   println("EXERCISE 5.7 map using implemented via foldRight")
   println(stream.map(_ * 2).toList)
@@ -52,8 +52,11 @@ object Chapter5 extends App {
   println(ones.take(5).toList)
   println(ones.map(_ + 1).exists(_ % 2 == 0))
   println(ones.takeWhile(_ == 1))
-  println(ones.forALl(_ != 1))
+  println(ones.forAll(_ != 1))
   // stack overflow: println(ones.forALl(_ == 1))
+
+  println("EXERCISE ??? append")
+  println(stream.append(stream).toList)
 
   println("EXERCISE 5.9 infinite stream of Integers")
   println(Stream.from(100).take(3).toList)
@@ -78,4 +81,15 @@ object Chapter5 extends App {
   println(stream.takeWhileUnfold(_ < 5).toList)
   println(stream.zipWithUnfold(ones)(_ + _).toList)
   println(stream.zipAllUnfold(ones).take(10).toList)
+
+  println("EXERCISE 5.14 startsWith")
+  println(ones.startsWith(stream))
+  println(ones.zipAllUnfold(stream).take(10).toList)
+  println(stream.startsWith(Stream.from(1).take(2)))
+
+  println("EXERCISE 5.15 startsWith")
+  println(Stream(1,2).tails)
+
+  println(stream.hasSubsequence(Stream(2,3)))
+  println(stream.hasSubsequence(Stream(3,2)))
 }

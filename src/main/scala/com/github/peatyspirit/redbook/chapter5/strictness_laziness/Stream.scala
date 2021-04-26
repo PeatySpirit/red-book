@@ -34,7 +34,7 @@ sealed trait Stream[+A] {
     case _ if n < 1 => this
   }
 
-  // Returns if there exists at least one element fitting the predicate p
+  // Returns true if there exists at least one element fitting the predicate p
   def exists(p: A => Boolean): Boolean = this match {
     // Thanks to implementation of || it will not keep traversing after first occurrence is found
     case Cons(h, t) => p(h()) || t().exists(p)
@@ -47,10 +47,8 @@ sealed trait Stream[+A] {
   }
 
   // 5.4 Checks if all elements in the stream match a given predicate, terminates once it finds first non-matching value
-  def forALl(p: A => Boolean): Boolean = this match {
-    case Cons(h, t) => !p(h()) || t().forALl(p)
-    case _ => true
-  }
+  def forAll(p: A => Boolean): Boolean =
+    foldRight(true)((a, b) => p(a) && b)
 
   // 5.5 Implement takeWhile using foldRight
   def takeWhile2(p: A => Boolean): Stream[A] =
@@ -69,11 +67,11 @@ sealed trait Stream[+A] {
       if (p(h)) cons(h, t)
       else t)
 
-  def append: Stream[A] = ??? // TODO not sure how to do that yet - having troubles even with signature...
+  def append[B>:A](s: => Stream[B]): Stream[B] =
+    foldRight(s)((h, t) => cons(h, t))
 
-  def flatMap[B](f: A => Stream[B]): Stream[B] = ???
-    // cannot implement without append I guess
-//    foldRight(empty[B])((h,t) => f(h) append t)
+  def flatMap[B](f: A => Stream[B]): Stream[B] =
+    foldRight(empty[B])((h, t) => f(h) append t)
 
   def find(p: A => Boolean): Option[A] =
     filter(p).headOption
@@ -110,6 +108,25 @@ sealed trait Stream[+A] {
       case (Empty, Cons(h2, t2)) => Some((None, Some(h2())), (Empty, t2()))
       case _ => None
     }
+
+  // EXERCISE 5.14 HARD Implement startsWith using previous functions
+  // TODO investigate why this has some complaints from Idea about type shadowing
+  def startsWith[A](s2: Stream[A]): Boolean =
+    this.zipAllUnfold(s2).forAll {
+      case (Some(x), Some(y)) => x == y
+      case (None, Some(_)) => false
+      case _ => true
+    }
+
+  // EXERCISE 5.15 Implement tails using unfold
+  def tails: Stream[Stream[A]] =
+    unfold(this) {
+      case Empty => None
+      case x => Some((x, x.drop(1) ))
+    } append Stream(empty)
+
+  def hasSubsequence[A](s: Stream[A]): Boolean =
+    tails exists(_ startsWith s)
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
